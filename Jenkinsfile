@@ -4,23 +4,16 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                echo 'Building..'
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
-            }
-            steps {
-                echo 'install node modules'
                 sh 'npm install'
-            }
-            steps {
                 sh 'ng build --prod --aot'
             }
         }
         stage('Test') {
             steps {
-                echo 'Code coverage'
-                sh 'ng test --code-coverage'
-            }
-            steps {
                 echo 'Testing..'
+                sh 'ng test --code-coverage'
                 sh 'ng test --single-run'
             }
         }
